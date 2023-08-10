@@ -30,4 +30,8 @@ public class Article {
 
     @Column(nullable = false)
     private BigDecimal price;
+
+    @ManyToOne
+    @JoinColumn(name="type_id", nullable=false)
+    private ArticleType type;
 }

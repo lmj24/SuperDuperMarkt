@@ -22,8 +22,11 @@ public class ArticleCommands {
     @Autowired
     private ArticleRepository articleRepository;
 
-    private final String tabbleDefinition = "| %-12s | %-10s | %-15s | %-10s |%n";
-    private final String tabbleColumnLine = "------------------------------------------------------------%n";
+    private final String tabbleDefinition = "| %-15s | %-9s | %-14s | %-6s |%n";
+    private final String tabbleColumnLine = "---------------------------------------------------------%n";
+
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyy");
+
 
     @ShellMethod(key = "all", value = "Gibt alle vorhandenen Artikel zurück")
     public void allArticles(@ShellOption(defaultValue = "spring") String arg) {
@@ -38,26 +41,23 @@ public class ArticleCommands {
 
             for (Article article : articles)
                 System.out.printf(this.tabbleDefinition,
-                        article.getName(), article.getQuality(), article.getExpirationDate(), article.getPrice());
+                        article.getName(), article.getQuality(),
+                        article.getExpirationDate().format(this.formatter), article.getPrice());
         } else
             System.out.println("No articles found.");
     }
 
     @ShellMethod(key = "get for", value = "Gibt alle vorhandenen Artikel für ein bestimmtes Datum zurück")
     public void getAllArticlesByDate(@ShellOption String dateInput) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyy");
-
         LocalDate date = null;
         try {
-            date = LocalDate.parse(dateInput, formatter);
+            date = LocalDate.parse(dateInput, this.formatter);
         } catch (Exception ex) {
             System.out.println("Falsches Datumsformat, bitte erneut versuchen. Beispiel: "
-                    + LocalDate.now().format(formatter));
+                    + LocalDate.now().format(this.formatter));
         }
 
         if (date.isBefore(LocalDate.now()))
             System.out.println("Das angegebene Datum liegt in der Vergangenheit.");
-
-        
     }
 }
