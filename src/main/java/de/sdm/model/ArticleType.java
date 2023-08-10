@@ -22,6 +22,6 @@ public class ArticleType {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy="type")
+    @OneToMany(mappedBy = "type")
     private Set<Article> articles;
 }

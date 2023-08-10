@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+
 @Entity
 @Table(name = "article")
 @Getter
@@ -32,6 +33,6 @@ public class Article {
     private BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(name="type_id", nullable=false)
+    @JoinColumn(name = "type_id", nullable = false)
     private ArticleType type;
 }

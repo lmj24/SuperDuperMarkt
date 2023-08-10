@@ -3,10 +3,11 @@ package de.sdm;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
 public class SuperDuperMarktApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SuperDuperMarktApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SuperDuperMarktApplication.class, args);
+    }
 }

@@ -17,16 +17,12 @@ import java.util.List;
 @ShellComponent
 public class ArticleCommands {
 
-    Logger logger = LoggerFactory.getLogger(ArticleCommands.class);
-
-    @Autowired
-    private ArticleRepository articleRepository;
-
     private final String tabbleDefinition = "| %-15s | %-9s | %-14s | %-6s |%n";
     private final String tabbleColumnLine = "---------------------------------------------------------%n";
-
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyy");
-
+    Logger logger = LoggerFactory.getLogger(ArticleCommands.class);
+    @Autowired
+    private ArticleRepository articleRepository;
 
     @ShellMethod(key = "all", value = "Gibt alle vorhandenen Artikel zurück")
     public void allArticles(@ShellOption(defaultValue = "spring") String arg) {
