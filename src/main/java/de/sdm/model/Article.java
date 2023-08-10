@@ -30,7 +30,4 @@ public class Article {
 
     @Column(nullable = false)
     private BigDecimal price;
-
-
-
 }
