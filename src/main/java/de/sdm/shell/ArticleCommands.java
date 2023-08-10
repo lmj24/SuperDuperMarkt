@@ -2,11 +2,14 @@ package de.sdm.shell;
 
 import de.sdm.model.Article;
 import de.sdm.model.repository.ArticleRepository;
+import de.sdm.util.CalculationUtils;
+import de.sdm.util.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
+import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -35,7 +38,7 @@ public class ArticleCommands {
 
             for (Article article : articles)
                 System.out.printf(this.tabbleDefinition, article.getName(), article.getPrice(),
-                        article.getQuality(), article.getExpirationDate().format(this.formatter));
+                        article.getQuality(), DateUtils.getExpirationDate(article.getExpirationDate(), this.formatter));
         } else System.out.println("No articles found.");
     }
 
@@ -63,9 +66,27 @@ public class ArticleCommands {
             System.out.printf(this.tabbleDefinition, "Bezeichnung", "Preis", "Qualität", "Entsorgen");
             System.out.printf(this.tabbleColumnLine);
 
-            for (Article article : articles)
+            for (Article article : articles) {
+                boolean dispose = false;
+                BigInteger quality = article.getQuality();
+
+                switch (article.getType().getName()) {
+                    case "Wein":
+                        quality = CalculationUtils.calculateWineQuality(article.getQuality(), LocalDate.now(), date);
+                        break;
+                    case "Käse":
+                        break;
+                    case "Obst":
+                        break;
+                    case "Milch":
+                        break;
+                    default:
+                        break;
+                }
+
                 System.out.printf(this.tabbleDefinition, article.getName(), article.getPrice(),
-                        article.getQuality(), "ja");
+                        quality, dispose);
+            }
         } else System.out.println("No articles found.");
     }
 }

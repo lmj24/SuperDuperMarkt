@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDate;
 
 
@@ -24,9 +25,9 @@ public class Article {
     private String name;
 
     @Column(nullable = false)
-    private long quality;
+    private BigInteger quality;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private LocalDate expirationDate;
 
     @Column(nullable = false)
