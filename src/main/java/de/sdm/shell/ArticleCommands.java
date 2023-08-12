@@ -27,7 +27,7 @@ public class ArticleCommands {
     @Autowired
     private ArticleRepository articleRepository;
 
-    @ShellMethod(key = "all", value = "Gibt alle vorhandenen Artikel zurück")
+    @ShellMethod(key = "get all", value = "Gibt alle vorhandenen Artikel zurück")
     public void allArticles(@ShellOption(defaultValue = "spring") String arg) {
         List<Article> articles = this.articleRepository.findAll();
         if (articles != null & !articles.isEmpty()) {
