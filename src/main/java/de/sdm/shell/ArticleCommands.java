@@ -53,8 +53,8 @@ public class ArticleCommands {
         try {
             date = LocalDate.parse(dateInput, this.formatter);
         } catch (Exception ex) {
-            System.out.println("Falsches Datumsformat, bitte erneut versuchen. Beispiel: " + LocalDate.now().format(this.formatter));
-            throw new Exception("");
+            throw new Exception("Falsches Datumsformat, bitte erneut versuchen. Beispiel: " +
+                    LocalDate.now().format(this.formatter));
         }
 
         if (date.isBefore(LocalDate.now()))

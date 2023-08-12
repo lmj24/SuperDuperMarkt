@@ -10,7 +10,7 @@
     </parent>
     <groupId>de.sdm</groupId>
     <artifactId>SuperDuperMarkt</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>SuperDuperMarkt</name>
     <description>Project SuperDuperMarkt</description>
     <properties>
