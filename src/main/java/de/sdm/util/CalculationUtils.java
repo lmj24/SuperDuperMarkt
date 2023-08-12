@@ -17,4 +17,10 @@ public class CalculationUtils {
 
         return result;
     }
+
+    public static BigInteger calculateCheese(BigInteger quality, LocalDate now, LocalDate date) {
+        long difference = ChronoUnit.DAYS.between(now, date);
+        BigInteger result = quality.subtract(BigInteger.valueOf(difference));
+        return result;
+    }
 }

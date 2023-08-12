@@ -4,11 +4,13 @@ import de.sdm.model.Article;
 import de.sdm.model.repository.ArticleRepository;
 import de.sdm.util.CalculationUtils;
 import de.sdm.util.DateUtils;
+import de.sdm.util.PriceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -69,22 +71,25 @@ public class ArticleCommands {
             for (Article article : articles) {
                 boolean dispose = false;
                 BigInteger quality = article.getQuality();
+                BigDecimal price = article.getPrice();
 
                 switch (article.getType().getName()) {
                     case "Wein":
                         quality = CalculationUtils.calculateWineQuality(article.getQuality(), LocalDate.now(), date);
                         break;
                     case "Käse":
-                        break;
-                    case "Obst":
-                        break;
-                    case "Milch":
+                        quality = CalculationUtils.calculateCheese(article.getQuality(), LocalDate.now(), date);
+                        if (quality.intValue() < 30)
+                            dispose = true;
+
+                        price = PriceUtils.calculatePrice(price, quality);
                         break;
                     default:
+                        price = PriceUtils.calculatePrice(price, quality);
                         break;
                 }
 
-                System.out.printf(this.tabbleDefinition, article.getName(), article.getPrice(),
+                System.out.printf(this.tabbleDefinition, article.getName(), price,
                         quality, dispose);
             }
         } else System.out.println("No articles found.");

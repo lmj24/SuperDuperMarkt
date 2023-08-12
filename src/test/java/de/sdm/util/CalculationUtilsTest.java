@@ -24,6 +24,21 @@ class CalculationUtilsTest {
                 CalculationUtils.calculateWineQuality
                         (BigInteger.valueOf(-20), LocalDate.of(2023, 8, 10),
                                 LocalDate.of(2023, 11, 17)));
+    }
 
+    @Test
+    public void testcalculateCheese() {
+        assertEquals(BigInteger.valueOf(-10),
+                CalculationUtils.calculateCheese
+                        (BigInteger.valueOf(40), LocalDate.of(2023, 8, 10),
+                                LocalDate.of(2023, 9, 29)));
+        assertEquals(BigInteger.valueOf(7),
+                CalculationUtils.calculateCheese
+                        (BigInteger.valueOf(40), LocalDate.of(2023, 8, 10),
+                                LocalDate.of(2023, 9, 12)));
+        assertEquals(BigInteger.valueOf(1),
+                CalculationUtils.calculateCheese
+                        (BigInteger.valueOf(100), LocalDate.of(2023, 8, 10),
+                                LocalDate.of(2023, 11, 17)));
     }
 }
