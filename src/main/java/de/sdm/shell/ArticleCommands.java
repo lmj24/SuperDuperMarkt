@@ -45,7 +45,7 @@ public class ArticleCommands {
     }
 
     @ShellMethod(key = "get for", value = "Gibt alle vorhandenen Artikel für ein bestimmtes Datum zurück")
-    public void getAllArticlesByDate(@ShellOption(defaultValue = "") String dateInput) {
+    public void getAllArticlesByDate(@ShellOption(defaultValue = "") String dateInput) throws Exception {
         if (dateInput == null || dateInput.isEmpty())
             dateInput = LocalDate.now().format(this.formatter);
 
@@ -54,6 +54,7 @@ public class ArticleCommands {
             date = LocalDate.parse(dateInput, this.formatter);
         } catch (Exception ex) {
             System.out.println("Falsches Datumsformat, bitte erneut versuchen. Beispiel: " + LocalDate.now().format(this.formatter));
+            throw new Exception("");
         }
 
         if (date.isBefore(LocalDate.now()))
